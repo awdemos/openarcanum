@@ -1,0 +1,60 @@
+{
+  "id": "dnd3e-fighter-0000-0000-000000000006",
+  "name": "Korgan",
+  "player": "",
+  "system_id": "758b9bb0-67a1-44e5-912e-73ef07f4f92e",
+  "created_at": "2026-01-01T00:00:00Z",
+  "updated_at": "2026-01-01T00:00:00Z",
+  "attributes": {
+    "strength": 16,
+    "dexterity": 14,
+    "constitution": 15,
+    "intelligence": 10,
+    "wisdom": 12,
+    "charisma": 8,
+    "level": 1,
+    "class": "Fighter",
+    "race": "Human",
+    "alignment": "Neutral",
+    "size": "Medium",
+    "hit_points": 12,
+    "base_attack_bonus": 1,
+    "armor_class": 16,
+    "fortitude_save": 2,
+    "reflex_save": 0,
+    "will_save": 0,
+    "skill_points": 8,
+    "feats": ["Power Attack", "Cleave"],
+    "weapon_proficiency_slots": 4,
+    "non_proficiency_penalty": 0,
+    "str_mod": 3,
+    "dex_mod": 2,
+    "con_mod": 2,
+    "int_mod": 0,
+    "wis_mod": 1,
+    "cha_mod": -1,
+    "initiative": 2,
+    "speed": 30,
+    "melee_attack": 4,
+    "ranged_attack": 3,
+    "grapple": 4,
+    "xp_bonus": 0,
+    "starting_gold": 150,
+    "special_abilities": [
+      "Bonus feat at 1st level",
+      "Bonus feat at 1st level (human)",
+      "Favored class: Any"
+    ],
+    "skill_ranks": {
+      "Climb": 4,
+      "Jump": 4,
+      "Swim": 4,
+      "Intimidate": 4
+    },
+    "languages": ["Common"]
+  },
+  "metadata": {
+    "template_name": "Human Fighter",
+    "template_description": "A human warrior trained in the art of combat"
+  }
+}

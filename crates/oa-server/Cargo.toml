@@ -1,0 +1,47 @@
+[package]
+name = "oa-server"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+description = "HTTP/WebSocket server for Open Arcanum character generation API"
+
+[dependencies]
+oa-core = { workspace = true, features = ["sqlite"] }
+oa-rules = { workspace = true }
+oa-sdk = { workspace = true }
+
+# Web
+tokio = { workspace = true }
+axum = { workspace = true }
+axum-extra = { workspace = true }
+tower = { workspace = true }
+tower-http = { workspace = true }
+hyper = { workspace = true }
+
+# API Documentation (disabled for now - see oa-server/src/main.rs)
+# utoipa = { workspace = true }
+# utoipa-swagger-ui = { workspace = true }
+
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# Error handling
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+
+# Observability
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+# Utilities
+uuid = { workspace = true }
+chrono = { workspace = true }
+
+[[bin]]
+name = "openarcanum-server"
+path = "src/main.rs"

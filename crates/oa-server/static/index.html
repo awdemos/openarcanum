@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Arcanum</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+</head>
+<body>
+    <header>
+        <h1>Open Arcanum</h1>
+        <p>RPG Character Generator Engine</p>
+    </header>
+
+    <main>
+        <section id="systems">
+            <h2>Available Systems</h2>
+            <div hx-get="/api/v1/systems" hx-trigger="load" hx-target="#system-list">
+                <div id="system-list">Loading systems...</div>
+            </div>
+        </section>
+
+        <section id="generate">
+            <h2>Generate Character</h2>
+            <form hx-post="/ui/generate" hx-target="#generated-character">
+                <label>
+                    System:
+                    <select name="system_id" required>
+                        <option value="dnd1e">D&D 1st Edition</option>
+                        <option value="dnd2e">D&D 2nd Edition</option>
+                        <option value="dnd3e">D&D 3.5 Edition</option>
+                    </select>
+                </label>
+                <label>
+                    Name:
+                    <input type="text" name="name" placeholder="Character Name" value="Hero">
+                </label>
+                <label>
+                    <input type="checkbox" name="use_rolled_stats" checked>
+                    Use Rolled Stats
+                </label>
+                <button type="submit">Generate</button>
+            </form>
+            <div id="generated-character"></div>
+        </section>
+
+        <section id="characters">
+            <h2>Characters</h2>
+            <div hx-get="/api/v1/characters" hx-trigger="load" hx-target="#character-list">
+                <div id="character-list">Loading characters...</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Open Arcanum - Open Source RPG Character Generator</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  openarcanum:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - DATABASE_URL=/data/openarcanum.db
+      - RUST_LOG=info
+    volumes:
+      - openarcanum-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    restart: unless-stopped
+
+volumes:
+  openarcanum-data:
