@@ -8,3 +8,13 @@ Cargo.lock
 .env
 node_modules/
 dist/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+Thumbs.db
