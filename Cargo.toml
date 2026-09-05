@@ -7,7 +7,7 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Open Arcanum Contributors"]
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/openarcanum/openarcanum"
+repository = "https://github.com/awdemos/openarcanum"
 homepage = "https://openarcanum.dev"
 rust-version = "1.78"
 
