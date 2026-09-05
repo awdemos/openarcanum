@@ -70,33 +70,30 @@ impl CharacterValidator for AttributeRangeValidator {
 
         for attr_def in &system.attributes {
             if let Some(attr) = character.get_attribute(&attr_def.name) {
-                match &attr_def.value_type {
-                    crate::ValueType::Integer { min, max } => {
-                        let value = attr.computed_value();
-                        if value < *min {
-                            errors.push(ValidationError {
-                                code: "attribute_below_minimum".to_string(),
-                                field: attr_def.name.clone(),
-                                message: format!(
-                                    "Attribute {} value {} is below minimum {}",
-                                    attr_def.name, value, min
-                                ),
-                                rule_id: None,
-                            });
-                        }
-                        if value > *max {
-                            errors.push(ValidationError {
-                                code: "attribute_above_maximum".to_string(),
-                                field: attr_def.name.clone(),
-                                message: format!(
-                                    "Attribute {} value {} exceeds maximum {}",
-                                    attr_def.name, value, max
-                                ),
-                                rule_id: None,
-                            });
-                        }
+                if let crate::ValueType::Integer { min, max } = &attr_def.value_type {
+                    let value = attr.computed_value();
+                    if value < *min {
+                        errors.push(ValidationError {
+                            code: "attribute_below_minimum".to_string(),
+                            field: attr_def.name.clone(),
+                            message: format!(
+                                "Attribute {} value {} is below minimum {}",
+                                attr_def.name, value, min
+                            ),
+                            rule_id: None,
+                        });
                     }
-                    _ => {}
+                    if value > *max {
+                        errors.push(ValidationError {
+                            code: "attribute_above_maximum".to_string(),
+                            field: attr_def.name.clone(),
+                            message: format!(
+                                "Attribute {} value {} exceeds maximum {}",
+                                attr_def.name, value, max
+                            ),
+                            rule_id: None,
+                        });
+                    }
                 }
             } else if attr_def.constraints.iter().any(|c| c.constraint_type == crate::ConstraintType::Requires) {
                 errors.push(ValidationError {
