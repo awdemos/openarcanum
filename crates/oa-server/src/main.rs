@@ -7,7 +7,7 @@ use axum::{
 };
 use tower_http::services::ServeDir;
 use oa_core::{
-    export::ExportFormat, schema::{SchemaInfo, SchemaRegistry}, system::CharacterStore, Character, CharacterSheet,
+    export::ExportFormat, schema::{SchemaInfo, SchemaRegistry}, Character, CharacterSheet,
     Error, GameSystem, GenerationOptions, GenerationResult,
 };
 use oa_rules::{create_engine, get_available_systems, get_system_definition};
@@ -22,6 +22,7 @@ use uuid::Uuid;
 #[derive(Clone)]
 struct AppState {
     character_store: Arc<Mutex<Box<dyn oa_core::system::CharacterStore>>>,
+    #[allow(dead_code)]
     system_registry: Arc<Mutex<oa_core::system::InMemorySystemRegistry>>,
 }
 
