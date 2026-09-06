@@ -18,3 +18,7 @@ dist/
 
 # OS files
 Thumbs.db
+
+# Desloppify artifacts
+.desloppify/
+scorecard.png
