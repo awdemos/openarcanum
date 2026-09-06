@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-use crate::{Character, CharacterSheet, Ability, Inventory, Item};
+use crate::{Character, CharacterSheet, Item};
 
 /// Open Game Content (OGC) character format.
 /// 

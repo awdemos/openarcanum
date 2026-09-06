@@ -1,4 +1,4 @@
-use oa_core::{Character, GameSystem, GenerationOptions, GenerationResult};
+use oa_core::{Character, GameSystem, GenerationOptions};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

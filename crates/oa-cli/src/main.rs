@@ -1,9 +1,9 @@
 use clap::{Parser, Subcommand};
-use oa_core::{Character, CharacterSheet, GameSystem, GenerationOptions};
+use oa_core::{Character, CharacterSheet, GenerationOptions};
 use oa_rules::{create_engine, get_available_systems, get_system_definition};
 use oa_sdk::OpenArcanumClient;
 use std::path::PathBuf;
-use tracing::{info, warn};
+use tracing::warn;
 
 #[derive(Parser)]
 #[command(name = "openarcanum")]
@@ -206,7 +206,7 @@ async fn handle_systems(detailed: bool) -> anyhow::Result<()> {
 async fn handle_generate(
     system_id: String,
     name: Option<String>,
-    player: Option<String>,
+    _player: Option<String>,
     level: Option<u32>,
     seed: Option<u64>,
     rolled: bool,
@@ -289,7 +289,7 @@ async fn handle_validate(
         }
     } else {
         let engine = create_engine(&system_id)?;
-        let system = get_system_definition(&system_id)?;
+        let _system = get_system_definition(&system_id)?;
 
         match engine.validate(&character) {
             Ok(()) => println!("Character is valid!"),

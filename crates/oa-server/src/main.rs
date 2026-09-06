@@ -2,7 +2,7 @@ use axum::{
     extract::{Form, Path, State},
     http::StatusCode,
     response::{Html, IntoResponse},
-    routing::{delete, get, post},
+    routing::{get, post},
     Json, Router,
 };
 use tower_http::services::ServeDir;
@@ -16,7 +16,7 @@ use std::sync::{Arc, Mutex};
 use tokio::net::TcpListener;
 use tower_http::cors::CorsLayer;
 use tower_http::trace::TraceLayer;
-use tracing::{info, warn};
+use tracing::info;
 use uuid::Uuid;
 
 #[derive(Clone)]
@@ -159,7 +159,7 @@ async fn get_character(
     let store = state.character_store.lock().unwrap();
     let character = store
         .load(&id)?
-        .ok_or_else(|| Error::CharacterNotFound(id))?;
+        .ok_or(Error::CharacterNotFound(id))?;
     Ok(Json(character))
 }
 
@@ -187,7 +187,7 @@ async fn export_character(
     let store = state.character_store.lock().unwrap();
     let character = store
         .load(&id)?
-        .ok_or_else(|| Error::CharacterNotFound(id))?;
+        .ok_or(Error::CharacterNotFound(id))?;
 
     let format = match request.format.as_str() {
         "json" => ExportFormat::Json,
@@ -296,7 +296,7 @@ async fn ui_view_character(
     let store = state.character_store.lock().unwrap();
     let character = store
         .load(&id)?
-        .ok_or_else(|| Error::CharacterNotFound(id))?;
+        .ok_or(Error::CharacterNotFound(id))?;
 
     let class = character.progression.classes.first()
         .map(|c| c.class_name.clone())

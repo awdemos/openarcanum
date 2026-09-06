@@ -194,7 +194,7 @@ pub fn generate_character_attributes(
     use_rolled: bool,
     point_buy: Option<u32>,
 ) -> Result<HashMap<String, AttributeValue>, String> {
-    let race = race_name.parse::<Race>().map_err(|e| e)?;
+    let race = race_name.parse::<Race>()?;
     let class = Class::from_str(class_name).ok_or_else(|| format!("Unknown class: {}", class_name))?;
 
     let raw_stats = if let Some(budget) = point_buy {
