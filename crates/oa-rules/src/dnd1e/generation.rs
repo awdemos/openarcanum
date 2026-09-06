@@ -207,7 +207,7 @@ pub fn generate_character_attributes(
     level: u32,
     method: &str,
 ) -> Result<HashMap<String, AttributeValue>, String> {
-    let race = race_name.parse::<Race>().map_err(|e| e)?;
+    let race = race_name.parse::<Race>()?;
     let class = Class::from_str(class_name).ok_or_else(|| format!("Unknown class: {}", class_name))?;
     let alignment = Alignment::from_str(alignment_name)
         .ok_or_else(|| format!("Unknown alignment: {}", alignment_name))?;

@@ -1,5 +1,5 @@
 use crate::SdkError;
-use oa_core::{Character, CharacterSheet, Error, GameSystem, GenerationOptions, GenerationResult};
+use oa_core::{Character, CharacterSheet, GameSystem, GenerationOptions, GenerationResult};
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use std::time::Duration;

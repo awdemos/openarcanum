@@ -17,6 +17,12 @@ pub struct Dnd3eEngine {
     system: GameSystem,
 }
 
+impl Default for Dnd3eEngine {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Dnd3eEngine {
     pub fn new() -> Self {
         Self {
@@ -113,7 +119,7 @@ impl RuleEngine for Dnd3eEngine {
         }
 
         if data::Class::from_str(&class).map(|c| c.bonus_feats()).unwrap_or(false) {
-            applied_rules.push(format!("Applied Fighter bonus feats"));
+            applied_rules.push("Applied Fighter bonus feats".to_string());
         }
 
         let character = CharacterSheet {

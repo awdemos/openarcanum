@@ -17,6 +17,12 @@ pub struct Dnd1eEngine {
     system: GameSystem,
 }
 
+impl Default for Dnd1eEngine {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Dnd1eEngine {
     pub fn new() -> Self {
         Self {
@@ -165,7 +171,7 @@ impl RuleEngine for Dnd1eEngine {
         let new_level = current_level + 1;
 
         if let Some(class) = data::Class::from_str(&class_name) {
-            let race = race_name.parse::<data::Race>().map_err(|e| Error::Validation(e))?;
+            let race = race_name.parse::<data::Race>().map_err(Error::Validation)?;
             let allowed = race.allowed_classes();
             if let Some(Some(max)) = allowed.get(class.name()).copied() {
                 if new_level > max {

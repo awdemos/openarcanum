@@ -983,7 +983,7 @@ pub fn normal_feat_count(level: u32) -> u32 {
 }
 
 pub fn fighter_bonus_feat_count(level: u32) -> u32 {
-    (level + 1) / 2
+    level.div_ceil(2)
 }
 
 pub fn full_caster_spell_slots(caster_level: u32) -> Vec<u32> {

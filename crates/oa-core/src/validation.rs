@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{Character, Error, GameSystem};
+use crate::{Character, GameSystem};
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]
@@ -66,7 +66,7 @@ pub struct AttributeRangeValidator;
 impl CharacterValidator for AttributeRangeValidator {
     fn validate(&self, character: &Character, system: &GameSystem) -> ValidationReport {
         let mut errors = Vec::new();
-        let mut warnings = Vec::new();
+        let warnings = Vec::new();
 
         for attr_def in &system.attributes {
             if let Some(attr) = character.get_attribute(&attr_def.name) {
