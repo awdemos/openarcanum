@@ -264,10 +264,10 @@ pub fn character_to_ogc(character: &Character) -> OgcCharacter {
     }
 
     for (key, value) in &character.metadata {
-        if key.starts_with("save_") {
+        if let Some(save_name) = key.strip_prefix("save_") {
             if let serde_json::Value::Number(v) = value {
                 if let Some(v_i) = v.as_i64() {
-                    combat.saving_throws.insert(key[5..].to_string(), v_i as i32);
+                    combat.saving_throws.insert(save_name.to_string(), v_i as i32);
                 }
             }
         }
@@ -384,9 +384,9 @@ pub fn character_sheet_to_ogc(sheet: &CharacterSheet) -> OgcCharacter {
     }
 
     for (key, value) in &sheet.attributes {
-        if key.starts_with("save_") {
+        if let Some(save_name) = key.strip_prefix("save_") {
             if let crate::AttributeValue::Integer(v) = value {
-                combat.saving_throws.insert(key[5..].to_string(), *v);
+                combat.saving_throws.insert(save_name.to_string(), *v);
             }
         }
     }
@@ -521,6 +521,27 @@ pub fn character_to_markdown(character: &Character) -> String {
     md
 }
 
+fn format_attribute_value(value: &crate::AttributeValue) -> String {
+    match value {
+        crate::AttributeValue::Integer(i) => i.to_string(),
+        crate::AttributeValue::Float(f) => format!("{:.1}", f),
+        crate::AttributeValue::String(s) => s.clone(),
+        crate::AttributeValue::Boolean(b) => b.to_string(),
+        crate::AttributeValue::List(items) => {
+            items.iter()
+                .map(format_attribute_value)
+                .collect::<Vec<_>>()
+                .join(", ")
+        }
+        crate::AttributeValue::Map(map) => {
+            let pairs: Vec<String> = map.iter()
+                .map(|(k, v)| format!("{}: {}", k, format_attribute_value(v)))
+                .collect();
+            format!("{{{}}}", pairs.join(", "))
+        }
+    }
+}
+
 pub fn character_sheet_to_markdown(sheet: &CharacterSheet) -> String {
     let mut md = String::new();
     md.push_str(&format!("# {}\n\n", sheet.name));
@@ -556,14 +577,7 @@ pub fn character_sheet_to_markdown(sheet: &CharacterSheet) -> String {
         md.push_str("| Attribute | Value |\n");
         md.push_str("|-----------|-------|\n");
         for (key, value) in &sheet.attributes {
-            let val_str = match value {
-                crate::AttributeValue::Integer(i) => i.to_string(),
-                crate::AttributeValue::String(s) => s.clone(),
-                crate::AttributeValue::Float(f) => f.to_string(),
-                crate::AttributeValue::Boolean(b) => b.to_string(),
-                crate::AttributeValue::List(l) => format!("{:?}", l),
-                crate::AttributeValue::Map(m) => format!("{:?}", m),
-            };
+            let val_str = format_attribute_value(value);
             md.push_str(&format!("| {} | {} |\n", key, val_str));
         }
         md.push('\n');
